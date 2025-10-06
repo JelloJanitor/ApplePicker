@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 862318025579729779}
   - component: {fileID: 2478092631064579275}
   - component: {fileID: 7229277911591291143}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: AppleSkin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,7 +120,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7413761830890978644}
-  m_Layer: 0
+  - component: {fileID: -7511297896443066439}
+  - component: {fileID: 6204156807797804942}
+  m_Layer: 9
   m_Name: Apple
   m_TagString: Apple
   m_Icon: {fileID: 0}
@@ -145,6 +147,45 @@ Transform:
   - {fileID: 169335463615381649}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &-7511297896443066439
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1732866700265252385}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &6204156807797804942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1732866700265252385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b62cbf290bf4844d927911d4cc925b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AppleController
 --- !u!1 &4409012334517846236
 GameObject:
   m_ObjectHideFlags: 0
@@ -157,7 +198,7 @@ GameObject:
   - component: {fileID: 4498101459406505475}
   - component: {fileID: 5606396580585280924}
   - component: {fileID: 3659782662942672885}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Leaf
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -173,7 +214,7 @@ Transform:
   m_GameObject: {fileID: 4409012334517846236}
   serializedVersion: 2
   m_LocalRotation: {x: -0.20944381, y: -0.12092242, z: 0.22188848, w: 0.9446039}
-  m_LocalPosition: {x: 0.15, y: 0.88, z: 0.05}
+  m_LocalPosition: {x: 0.15, y: 0.6, z: 0.05}
   m_LocalScale: {x: 0.6, y: 0.05, z: 0.3333334}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -268,7 +309,7 @@ GameObject:
   - component: {fileID: 7194530161541344475}
   - component: {fileID: 4276906630876381627}
   - component: {fileID: 1568885362722704699}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Stem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
