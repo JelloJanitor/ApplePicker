@@ -188,10 +188,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AppleTreeController
   applePrefab: {fileID: 1732866700265252385, guid: ac05318125125ba4daf09862e0033636, type: 3}
-  speed: 1
+  speed: 7.5
   leftAndRightEdge: 24
-  changeDirChance: 0.1
-  appleDropDelay: 1
+  changeDirChance: 0.02
+  appleDropDelay: 0.6
 --- !u!1 &5870614852926207915
 GameObject:
   m_ObjectHideFlags: 0
