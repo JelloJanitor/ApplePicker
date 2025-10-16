@@ -43,6 +43,7 @@ public class BasketController : MonoBehaviour
             Destroy(collidedWith);
             // Increase the score
             gameUI.score += 100;
+            HighScoreController.TRY_SET_HIGH_SCORE(gameUI.score);
         }
     }
 }
