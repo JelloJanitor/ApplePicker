@@ -14,6 +14,8 @@ public class GameUIController : MonoBehaviour
     public TextMeshProUGUI scoreCounterText;
     public TextMeshProUGUI basketCounterText;
 
+    public GameObject gameMenu;
+
     //void Awake()
     //{
     //    highScoreUIText = GetComponent<TextMeshProUGUI>();
@@ -48,13 +50,21 @@ public class GameUIController : MonoBehaviour
         GameManager.Instance.OnGameStart += ResetUI;
         GameManager.Instance.OnScore += UpdateScoreText;
         GameManager.Instance.OnAppleMiss += UpdateBasketText;
-        Debug.Log("Enabled UI");
-    }
+        GameManager.Instance.OnGameReset += ActivateMenu;
+        //Debug.Log("Enabled UI");
+    } 
     void ResetUI()
     {
         UpdateScoreText();
         UpdateBasketText();
+
+        //gameMenu.SetActive(true);
         //Debug.Log("Game starting...");
+    }
+
+    void ActivateMenu()
+    {
+        gameMenu.SetActive(true);
     }
 
     void UpdateScoreText()
@@ -67,5 +77,11 @@ public class GameUIController : MonoBehaviour
     void UpdateBasketText()
     {
         basketCounterText.text = GameManager.Instance.numBaskets.ToString("Baskets: #,0");
+    }
+
+    public void OnStartGameButtonPressed()
+    {
+        GameManager.Instance.StartGame();
+        gameMenu.SetActive(false);
     }
 }

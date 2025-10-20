@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;
 
-    // Establishe singleton GameManager
+    // Establish singleton GameManager
     public static GameManager Instance
     {
         get
@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
     public float basketSpacingY = 2f;
 
     [Header("Dynamic")]
-    public int highScore;
+    public int highScore = 1000;
     public int score;
 
     public int numBaskets;
@@ -62,32 +62,34 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        TogglePause();
-        ResetGame();
+        Time.timeScale = 0f;
+        numBaskets = startBaskets;
+        //TogglePause();
+        //ResetGame();
         //StartGame(); // REPLACE WHEN MENU INSTALLED
     }
 
-    //void CreateBaskets()
-    //{
-    //    numBaskets = 0;
+//void CreateBaskets()
+//{
+//    numBaskets = 0;
 
-    //    //basketList = new List<GameObject>();
-    //    for (int i = 0; i < totalBaskets; i++)
-    //    {
-    //        Debug.Log("Incramenting numBaskets");
+//    //basketList = new List<GameObject>();
+//    for (int i = 0; i < totalBaskets; i++)
+//    {
+//        Debug.Log("Incramenting numBaskets");
 
-    //        GameObject tBasketGO = Instantiate<GameObject>(basketPrefab);
-    //        //GameObject tBasketGO = Instantiate<GameObject>();
-    //        Vector3 pos = Vector3.zero;
-    //        pos.y = basketBottomY + (basketSpacingY * i);
-    //        tBasketGO.transform.position = pos;
-    //        //OnBasketAdd?.Invoke();
-    //        //basketList.Add(tBasketGO);
-    //    }
-    //}
+//        GameObject tBasketGO = Instantiate<GameObject>(basketPrefab);
+//        //GameObject tBasketGO = Instantiate<GameObject>();
+//        Vector3 pos = Vector3.zero;
+//        pos.y = basketBottomY + (basketSpacingY * i);
+//        tBasketGO.transform.position = pos;
+//        //OnBasketAdd?.Invoke();
+//        //basketList.Add(tBasketGO);
+//    }
+//}
 
-    // Pause or unpause the time
-    public void TogglePause()
+// Pause or unpause the time
+public void TogglePause()
     {
         if (isPaused)
         {
@@ -148,10 +150,10 @@ public class GameManager : MonoBehaviour
     //    return numBaskets;
     //}
 
-    public void SetNumBaskets(int numBaskets)
-    {
-        this.numBaskets = numBaskets;
-    }
+    //public void SetNumBaskets(int numBaskets)
+    //{
+    //    this.numBaskets = numBaskets;
+    //}
 
     private void ResetGame()
     {
@@ -162,8 +164,6 @@ public class GameManager : MonoBehaviour
         numBaskets = startBaskets;
 
         OnGameReset?.Invoke();
-
-        StartGame(); // REMOVE
     }
 
     public void StartGame()

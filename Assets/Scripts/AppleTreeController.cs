@@ -61,6 +61,8 @@ public class AppleTreeController : MonoBehaviour
         canDrop = false;
         DeleteApples();
 
+        CancelInvoke("DropApple");
+
         Vector3 pos = transform.position;
         pos.x = 0;
         transform.position = pos;

@@ -7,16 +7,18 @@ public class BasketManager : MonoBehaviour
 {
     public InputActionReference move;
     public InputActionReference pause;
-    bool isActive = false;
+    bool canPause = false;
+    bool isTakingInput = false;
 
     public GameObject basketPrefab;
     List<GameObject> basketList;
-
+    
     private void OnEnable()
     {
         GameManager.Instance.OnGameStart += CreateBaskets;
         GameManager.Instance.OnGamePause += TogglePlayerControl;
         GameManager.Instance.OnAppleMiss += DeleteBasket;
+        GameManager.Instance.OnGameReset += RemovePauseAbility;
     }
 
     void CreateBaskets()
@@ -34,15 +36,26 @@ public class BasketManager : MonoBehaviour
             //OnBasketAdd?.Invoke();
             basketList.Add(tBasketGO);
         }
+
+        canPause = true;
     }
 
     void Awake()
     {
         move.action.Enable();
         pause.action.Enable();
+
+        //GameManager.Instance.OnGameStart += CreateBaskets;
+        //GameManager.Instance.OnGamePause += TogglePlayerControl;
+        //GameManager.Instance.OnAppleMiss += DeleteBasket;
         //move.action.Enable();
 
         //GameManager.Instance.IncramentNumBaskets();
+    }
+
+    void RemovePauseAbility()
+    {
+        canPause = false;
     }
 
     void TogglePlayerControl()
@@ -56,7 +69,7 @@ public class BasketManager : MonoBehaviour
         //    move.action.Enable();
         //}
 
-        isActive = !isActive;
+        isTakingInput = !isTakingInput;
     }
 
     //void IncreaseBasketLayer()
@@ -75,7 +88,7 @@ public class BasketManager : MonoBehaviour
 
     void Update()
     {
-        if (pause.action.WasPressedThisFrame())
+        if (canPause && pause.action.WasPressedThisFrame())
         {
             GameManager.Instance.TogglePause();
         }
@@ -92,7 +105,7 @@ public class BasketManager : MonoBehaviour
         // Convert the point from 2D screen space into 3D game world space
         Vector3 mousePos3D = Camera.main.ScreenToWorldPoint(mousePos2D);
 
-        if (isActive)
+        if (isTakingInput)
         {
             for (int i = 0; i < basketList.Count; i++)
             {
