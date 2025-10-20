@@ -6,13 +6,11 @@ using UnityEngine.UI;
 
 public class GameUIController : MonoBehaviour
 {
-    [Header("Dynamic")]
-    public int score = 0;
-
     //static private TextMeshProUGUI highScoreUIText;
     //static private int highScore = 1000;
     //public TextMeshProUGUI highScoreText;
 
+    public TextMeshProUGUI highScoreText;
     public TextMeshProUGUI scoreCounterText;
     public TextMeshProUGUI basketCounterText;
 
@@ -40,16 +38,34 @@ public class GameUIController : MonoBehaviour
     //    highScore = scoreToTry;
     //}
 
-    void Start()
+    private void Start()
     {
-        //
+        ResetUI();
     }
 
-    void Update()
+    void OnEnable()
+    {
+        GameManager.Instance.OnGameStart += ResetUI;
+        GameManager.Instance.OnScore += UpdateScoreText;
+        GameManager.Instance.OnAppleMiss += UpdateBasketText;
+        Debug.Log("Enabled UI");
+    }
+    void ResetUI()
+    {
+        UpdateScoreText();
+        UpdateBasketText();
+        //Debug.Log("Game starting...");
+    }
+
+    void UpdateScoreText()
     {
         //if (highScore < score) highScore = score;
-        //highScoreText.text = highScore.ToString("High Score: #,0");
-        scoreCounterText.text = score.ToString("Score: #,0");
-        basketCounterText.text = "Baskets: 3";
+        highScoreText.text = GameManager.Instance.highScore.ToString("High Score: #,0");
+        scoreCounterText.text = GameManager.Instance.score.ToString("Score: #,0");
+    }
+
+    void UpdateBasketText()
+    {
+        basketCounterText.text = GameManager.Instance.numBaskets.ToString("Baskets: #,0");
     }
 }

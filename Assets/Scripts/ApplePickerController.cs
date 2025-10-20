@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class ApplePickerController : MonoBehaviour
 {
-    [Header("Inscribed")]
+    /*[Header("Inscribed")]
     public GameObject basketPrefab;
     public int numBaskets = 3;
     public float basketBottomY = -14f;
@@ -49,4 +49,5 @@ public class ApplePickerController : MonoBehaviour
             SceneManager.LoadScene("_Scene_0");
         }
     }
+    */
 }

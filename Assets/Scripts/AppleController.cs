@@ -5,17 +5,25 @@ using UnityEngine;
 public class AppleController : MonoBehaviour
 {
     public static float bottomY = -20f;
-    
+
+    private void OnEnable()
+    {
+        //GameManager.Instance.OnAppleMiss += DeleteApple;
+    }
+
     void Update()
     {
         if (transform.position.y < bottomY)
         {
-            Destroy(this.gameObject);
-
-            // Get a reference to the ApplePicker component of Main Camera
-            ApplePickerController applePicker = Camera.main.GetComponent<ApplePickerController>();
-            // Call the public AppleMissed() method of apScript
-            applePicker.AppleMissed();
+            // Notify GameManager AFTER destroy call, but only if this object is still valid
+            // Use a guard to prevent further execution if already destroyed
+            // (Destroy happens end of frame, so this is safe)
+            GameManager.Instance.AppleMissed();
         }
+    }
+
+    public void DeleteApple()
+    {
+        Destroy(gameObject);
     }
 }

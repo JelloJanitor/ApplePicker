@@ -835,87 +835,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7d39bab946a5d7408ba8d369edc06cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameUIController
-  highScoreText: {fileID: 680746214}
   scoreCounterText: {fileID: 48542582}
   basketCounterText: {fileID: 2109715003}
---- !u!1 &1526495828
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1526495830}
-  - component: {fileID: 1526495829}
-  - component: {fileID: 1526495831}
-  m_Layer: 0
-  m_Name: BasketManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1526495829
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1526495828}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49332d9147793d14ab500e3831d3d34c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BasketManager
-  move: {fileID: -8016074699573254480, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  pause: {fileID: 654326300015837633, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  basketPrefab: {fileID: 2704946628377142923, guid: dba6fe15f7ba76b4caa53321a29b9ec9, type: 3}
---- !u!4 &1526495830
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1526495828}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 256.18234, y: 1057.3484, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1526495831
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1526495828}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
-  m_Actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  m_NotificationBehavior: 0
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: Keyboard&Mouse
-  m_DefaultActionMap: 
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
 --- !u!1 &1791441858
 GameObject:
   m_ObjectHideFlags: 0
@@ -1024,13 +945,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ddff86962fa2134ab93bcdff916b16f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  startBaskets: 3
+  basketPrefab: {fileID: 2704946628377142923, guid: dba6fe15f7ba76b4caa53321a29b9ec9, type: 3}
+  numBaskets: 3
   basketBottomY: -14
   basketSpacingY: 2
-  highScore: 0
   score: 0
-  numBaskets: 0
-  resetHighScoreNow: 0
 --- !u!4 &1907414048
 Transform:
   m_ObjectHideFlags: 0
@@ -1248,6 +1167,5 @@ SceneRoots:
   - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 8122668866598581365}
-  - {fileID: 1526495830}
   - {fileID: 1456133090}
   - {fileID: 1791441861}
