@@ -1,29 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AppleController : MonoBehaviour
 {
+    // Y at which apples will be destroyed
     public static float bottomY = -20f;
 
-    private void OnEnable()
-    {
-        //GameManager.Instance.OnAppleMiss += DeleteApple;
-    }
-
+    // Runs every frame
     void Update()
     {
+        // Check if the apple has passed the minimum permissable y value
         if (transform.position.y < bottomY)
         {
-            // Notify GameManager AFTER destroy call, but only if this object is still valid
-            // Use a guard to prevent further execution if already destroyed
-            // (Destroy happens end of frame, so this is safe)
+            // Notify gamemanager an apple was missed
             GameManager.Instance.AppleMissed();
         }
     }
 
-    public void DeleteApple()
-    {
-        Destroy(gameObject);
-    }
+    //// Apple deletes itself
+    //public void DeleteApple()
+    //{
+    //    Destroy(gameObject);
+    //}
 }

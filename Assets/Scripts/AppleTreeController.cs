@@ -9,6 +9,8 @@ public class AppleTreeController : MonoBehaviour
     [Header("Inscribed")]
     // Prefab for instantiating apples
     public GameObject applePrefab;
+
+    // List of created apples
     List<GameObject> appleList = new List<GameObject>();
 
     // Speed at which the AppleTree moves
@@ -23,11 +25,13 @@ public class AppleTreeController : MonoBehaviour
     // Seconds between Apples instantiations
     public float appleDropDelay = 1f;
 
-    private float lastAppleDropTime;
+    // Lock for if an apple drop has already been invoked
     private bool isDropQueued;
+
+    // Lock if the game is paused
     private bool canDrop;
 
-
+    // Subscribe to actions
     private void OnEnable()
     {
         GameManager.Instance.OnGameStart += StartTree;
@@ -35,27 +39,29 @@ public class AppleTreeController : MonoBehaviour
         GameManager.Instance.OnGamePause += PauseTree;
         GameManager.Instance.OnGameReset += ResetTree;
     }
+
+    // Allows the tree to start dropping apples
     void Start()
     {
-        // Start dropping apples
         StartTree();
-        //Invoke("DropApple", 2f);
     }
 
+    // Starts dropping apples with a 2s initial delay
     void StartTree()
     {
         canDrop = true;
 
-        lastAppleDropTime = Time.time;
         isDropQueued = true;
         Invoke("DropApple", 2f);
     }
 
+    // Toggle canDrop
     void PauseTree()
     {
         canDrop = !canDrop;
     }
 
+    // Delete apples and cancel any invokes for apple drops
     private void ResetTree()
     {
         canDrop = false;
@@ -68,37 +74,30 @@ public class AppleTreeController : MonoBehaviour
         transform.position = pos;
     }
 
+    // Drop an apple from the tree
     void DropApple()
     {
-        //GameObject apple = Instantiate<GameObject>(applePrefab);
-        //apple.transform.position = transform.position;
-        //Invoke("DropApple", appleDropDelay);
-        
         if (canDrop)
         {
             GameObject tAppleGO = Instantiate<GameObject>(applePrefab);
             tAppleGO.transform.position = this.transform.position;
             appleList.Add(tAppleGO);
 
-            lastAppleDropTime = Time.time;
             isDropQueued = false;
         }
-
-        //Invoke("TryDropApple", appleDropDelay);
     }
 
+    // Destroy all apples and delete apples from the appleList
     void DeleteApples()
     {
         for (int i = appleList.Count - 1; i >= 0; i--)
         {
             Destroy(appleList[i]);
             appleList.RemoveAt(i);
-            //GameObject tAppleGo = appleList[i];
-            //appleList.Remove();
-            //Destroy(tAppleGo);
         }
     }
 
+    // Things to run every frame
     void Update()
     {
         // Basic Movement
@@ -116,6 +115,7 @@ public class AppleTreeController : MonoBehaviour
             speed = -Mathf.Abs(speed); // Move left
         }
 
+        // Drop apple if no other apple queued and apple dropping is enabled
         if (!isDropQueued && canDrop)
         {
             isDropQueued = true;
@@ -123,6 +123,7 @@ public class AppleTreeController : MonoBehaviour
         }
     }
 
+    // Update the tree's movement
     private void FixedUpdate()
     {
         if (Random.value < changeDirChance)

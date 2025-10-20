@@ -1,11 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
-using UnityEngine.SocialPlatforms.Impl;
 
 public class GameManager : MonoBehaviour
 {
@@ -39,19 +33,20 @@ public class GameManager : MonoBehaviour
 
     // Establish public variables
     [Header("Inscribed")]
-    //public GameObject basketPrefab;
     public int startBaskets = 3;
     public float basketBottomY = -14f;
     public float basketSpacingY = 2f;
 
+    // Variables that will change as the game is played
     [Header("Dynamic")]
     public int highScore = 1000;
     public int score;
-
     public int numBaskets;
 
+    // Execute when script established
     private void Awake()
     {
+        // Retrieve the high score if it exists, otherwise create a field for it
         if (PlayerPrefs.HasKey("HighScore"))
         {
             highScore = PlayerPrefs.GetInt("HighScore");
@@ -60,36 +55,15 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("HighScore", highScore);
     }
 
+    // Set up game settings for the start menu
     void Start()
     {
         Time.timeScale = 0f;
         numBaskets = startBaskets;
-        //TogglePause();
-        //ResetGame();
-        //StartGame(); // REPLACE WHEN MENU INSTALLED
     }
 
-//void CreateBaskets()
-//{
-//    numBaskets = 0;
-
-//    //basketList = new List<GameObject>();
-//    for (int i = 0; i < totalBaskets; i++)
-//    {
-//        Debug.Log("Incramenting numBaskets");
-
-//        GameObject tBasketGO = Instantiate<GameObject>(basketPrefab);
-//        //GameObject tBasketGO = Instantiate<GameObject>();
-//        Vector3 pos = Vector3.zero;
-//        pos.y = basketBottomY + (basketSpacingY * i);
-//        tBasketGO.transform.position = pos;
-//        //OnBasketAdd?.Invoke();
-//        //basketList.Add(tBasketGO);
-//    }
-//}
-
-// Pause or unpause the time
-public void TogglePause()
+    // Pause or unpause the game time
+    public void TogglePause()
     {
         if (isPaused)
         {
@@ -100,10 +74,12 @@ public void TogglePause()
             Time.timeScale = 0f;
         }
 
+        // Flop paused state variable and notify subscribers
         isPaused = !isPaused;
         OnGamePause?.Invoke();
     }
 
+    // Called by BasketController if an apple intersects with a basket
     public void ItemCaught(GameObject go)
     {
         UpdateScore(go);
@@ -113,48 +89,44 @@ public void TogglePause()
     // Update the score based on what object was caught with the basket and destroy said object
     public void UpdateScore(GameObject go)
     {
+        // If the game object is an apple (base case) ad 100 points
         if (go.CompareTag("Apple"))
         {
             score += 100;
 
+            // Try to update highScore
             if (score > highScore)
             {
                 highScore = score;
             }
-            //HighScoreController.TRY_SET_HIGH_SCORE(gameUI.score);
         }
 
+        // Notify subscribers of score change
         OnScore?.Invoke();
     }
 
+    // Called by AppleController if an apple falls too low
     public void AppleMissed()
     {
+        // Decriment the number of baskets and update subscribers
         numBaskets--;
         OnAppleMiss?.Invoke();
 
-        //Debug.Log("GameManager numBaskets: " + numBaskets);
-
+        // Check if the game is over
         if (numBaskets == 0)
         {
+            // Try to reset the high score if there is a chance highScore was changed
             if (highScore == score)
             {
                 TrySetHighScore();
             }
             
+            // Reset the game
             ResetGame();
         }
     }
 
-    //public int GetNumBaskets()
-    //{
-    //    return numBaskets;
-    //}
-
-    //public void SetNumBaskets(int numBaskets)
-    //{
-    //    this.numBaskets = numBaskets;
-    //}
-
+    // Pauses the game and updates dynamic variables
     private void ResetGame()
     {
         TogglePause();
@@ -163,15 +135,18 @@ public void TogglePause()
         score = 0;
         numBaskets = startBaskets;
 
+        // Update subscribers
         OnGameReset?.Invoke();
     }
 
+    // Unpauses the game and updates subscribers
     public void StartGame()
     {
         TogglePause();
         OnGameStart?.Invoke();
     }
 
+    // Tries to set the high score in PlayerPrefs
     private void TrySetHighScore()
     {
         if (highScore == score)
@@ -180,6 +155,7 @@ public void TogglePause()
         }
     }
 
+    // Reset the high score stored in PlayerPrefs
     [Tooltip("Check this box to reset the HighScore in PlayerPrefs")]
     public bool resetHighScoreNow = false;
 
@@ -187,9 +163,12 @@ public void TogglePause()
     {
         if (resetHighScoreNow)
         {
+            // Immediately uncheck box
             resetHighScoreNow = false;
+            // Base high score is 1000
             PlayerPrefs.SetInt("HighScore", 1000);
-            Debug.LogWarning("PlayerPrefs HighScoe reset to 1,000.");
+            // Warn user of highScore reset.
+            Debug.LogWarning("PlayerPrefs HighScore reset to 1,000.");
         }
     }
 }
